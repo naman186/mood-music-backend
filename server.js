@@ -9,7 +9,20 @@ const PORT = 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Mood-Based Music Recommender API',
+        status: 'Running',
+        endpoints: {
+            moods: '/api/moods',
+            recommend: '/api/recommend/:mood',
+            songs: '/api/songs',
+            searchArtist: '/api/search/artist/:name'
+        }
+    });
+});
+
 
 // Songs database
 const songsDatabase = {
