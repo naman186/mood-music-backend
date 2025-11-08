@@ -1,10 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;  // ← CRITICAL FIX!
 
 // Middleware
 app.use(cors());
@@ -22,7 +20,6 @@ app.get('/', (req, res) => {
         }
     });
 });
-
 
 // Songs database
 const songsDatabase = {
@@ -75,7 +72,7 @@ const songsDatabase = {
     }
 };
 
-// Helper function to calculate duration
+// Helper functions
 function durationToSeconds(duration) {
     const [mins, secs] = duration.split(':').map(Number);
     return mins * 60 + secs;
@@ -147,5 +144,5 @@ app.get('/api/search/artist/:name', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🎵 Mood-Based Music Recommender API running on http://localhost:${PORT}`);
+    console.log(`🎵 Mood-Based Music Recommender API running on port ${PORT}`);
 });
